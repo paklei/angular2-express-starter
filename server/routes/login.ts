@@ -3,6 +3,8 @@ import { randomBytes, pbkdf2 } from "crypto";
 import { sign } from "jsonwebtoken";
 import { secret, length, digest } from "../config";
 
+var User = require('../models/usuario.model.js');
+
 const loginRouter: Router = Router();
 
 const user = {
@@ -13,6 +15,18 @@ const user = {
     username: "john"
 };
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/test');
+var db = mongoose.connection;
+mongoose.Promise = global.Promise;
+
+// Models
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('Connection to MongoDB in login.ts stablished...');
+
+
 loginRouter.post("/signup", function (request: Request, response: Response, next: NextFunction) {
     if (!request.body.hasOwnProperty("password")) {
         let err = new Error("No password");
@@ -22,11 +36,19 @@ loginRouter.post("/signup", function (request: Request, response: Response, next
     const salt = randomBytes(128).toString("base64");
 
     pbkdf2(request.body.password, salt, 10000, length, digest, (err: Error, hash: Buffer) => {
-        response.json({
-            hashed: hash.toString("hex"),
-            salt: salt
+        //var nombre="prueba";
+        var pass= hash.toString("hex");
+        //var salt= salt;
+        var obj = new User({
+            name:'name',lastnamep:"pat",lastnamem:"mat",
+             password:pass,salt:salt,nick:"test6"
         });
+        obj.save(function(err, obj) {
+            if(err) return console.error(err);
+            console.log("User inserted successfully: "obj);
+            response.status(200).json(obj);
     });
+});
 });
 
 // login method
@@ -49,5 +71,5 @@ loginRouter.post("/", function (request: Request, response: Response, next: Next
 
     });
 });
-
+});
 export { loginRouter }

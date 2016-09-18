@@ -1,0 +1,25 @@
+<div class="card" *ngIf="!isEditing">
+	<h5 class="card-header">Add new user</h5>
+	<div class="card-block">
+		<form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addUser()" style="text-align:center">
+			<div class="form-group">
+			    <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name">
+			</div>
+			<div class="form-group">
+			    <input class="form-control" type="text" name="lastnamep" formControlName="lastnamep" placeholder="Paterno">
+			</div>
+			<div class="form-group">
+			    <input class="form-control" type="text" name="lastnamem" formControlName="lastnamem" placeholder="Materno">
+			</div>
+			<div class="form-group">
+			    <input class="form-control" type="text" name="nick" formControlName="nick" placeholder="Nick">
+			</div>
+			<div class="form-group">
+			    <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
+			</div>
+			
+			<button class="btn btn-primary" type="submit" [disabled]="!addUserForm.valid"><i class="fa fa-floppy-o"></i>Add</button>
+		</form>
+	</div>
+
+</div>

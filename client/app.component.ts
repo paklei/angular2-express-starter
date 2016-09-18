@@ -9,9 +9,10 @@ import "rxjs/add/operator/map";
 <div class="ui container">
     <nav class="ui menu inverted teal huge">
         <a routerLink="home" class="item">Home</a>
-        <a routerLink="contact" class="item">Contact Me</a>
+        <a routerLink="contact" class="item">Contact</a>
         
         <nav class="menu right">
+        <a class="bottom attached fluid primary" (click)="signupform()" class="item">Signup form</a>
             <a class="bottom attached fluid primary" (click)="signup()" class="item">Signup</a>
             <a (click)="myPopup.show($event, {position: 'right center'})" *ngIf="!isLogged" class="item">Login</a>
             <a (click)="logout()" *ngIf="isLogged" class="item inverted red">Logout</a>
@@ -39,14 +40,10 @@ import "rxjs/add/operator/map";
     <router-outlet></router-outlet>
     
     <sm-segment *ngIf="response">
-        <div style="word-break: break-all"><b>Hashed:</b> {{response?.hashed}}</div>
+        <div style="word-break: break-all"><b>Hashed:</b> {{response?.password}}</div>
         <div class="ui divider"></div>
         <div style="word-break: break-all"><b>Salt:</b> {{response?.salt}}</div>
     </sm-segment>
-    
-    <div class="center">
-        <img src='https://angular.io/resources/images/logos/standard/shield-large.png'>
-    </div>
     
 </div>`
 })
@@ -58,11 +55,14 @@ export class AppComponent {
     };
 
     isLogged: boolean;
-    response: { hashed: string, salt: string };
+    response: { password: string, salt: string };
     @ViewChild("myPopup") myPopup: SemanticPopupComponent;
 
     constructor(private http: Http) {
         this.isLogged = !!localStorage.getItem("id_token");
+    }
+    signupform(){
+
     }
 
     signup() {
@@ -71,7 +71,7 @@ export class AppComponent {
         }))
             .map((res: any) => res.json())
             .subscribe(
-                (res: Response) => {
+                (res: any) => {
                     this.response = res;
                 },
                 (error: Error) => { console.log(error); }
