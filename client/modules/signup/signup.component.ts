@@ -6,7 +6,8 @@ import {UserService} from './user.service';
 
 @Component({
 	selector: 'signup',
-	templateUrl: './signup.component.html'
+	providers: [UserService],
+	templateUrl:  `client/modules/signup/signup.component.html`
 })
 
 export class SignupComponent implements OnInit {
@@ -31,7 +32,7 @@ export class SignupComponent implements OnInit {
 				private formBuilder: FormBuilder) {	}
 
 	ngOnInit() {
-		this.getUsers();
+		//this.getUsers();
 
 		this.addUserForm = this.formBuilder.group({
 			name: this.name,

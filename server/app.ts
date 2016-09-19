@@ -5,6 +5,7 @@ import { json, urlencoded } from "body-parser";
 
 import { loginRouter } from "./routes/login";
 import { protectedRouter } from "./routes/protected";
+import { userRouter } from "./routes/user";
 
 import {Usuario} from "./models/usuario.model.js";
 
@@ -20,6 +21,7 @@ app.use(urlencoded({ extended: true }));
 // api routes
 app.use("/api", protectedRouter);
 app.use("/login", loginRouter);
+app.use("/user",userRouter);
 
 app.use('/client', express.static(join(__dirname, '../client')));
 

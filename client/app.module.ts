@@ -9,6 +9,7 @@ import { routing } from "./routes";
 import { HelloComponent } from "./components/shared/hello.component";
 import { ContactModule } from "./modules/contact/contact.module";
 import { HomeModule } from "./modules/home/home.module";
+import { SignupModule } from "./modules/signup/signup.module";
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { HomeModule } from "./modules/home/home.module";
         NgSemanticModule,
         ContactModule,
         HomeModule,
+        SignupModule,
         routing
     ],
     providers: [
@@ -26,7 +28,7 @@ import { HomeModule } from "./modules/home/home.module";
             noTokenScheme: true
         })
     ],
-    declarations: [ HelloComponent, AppComponent ],
+    declarations: [ HelloComponent, AppComponent],
     bootstrap:    [ AppComponent ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

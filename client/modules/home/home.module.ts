@@ -4,7 +4,6 @@ import { NgSemanticModule } from "ng-semantic";
 import { CommonModule } from "@angular/common";
 
 import { HomeComponent } from "./home.component";
-import { SignupComponent } from "../signup/signup.component";
 import { routing } from "./home.routing";
 import { SharedModule } from "../shared/shared.module";
 import { ContactModule } from "../contact/contact.module";

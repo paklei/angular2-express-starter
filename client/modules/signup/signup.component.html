@@ -1,24 +1,29 @@
-<div class="card" *ngIf="!isEditing">
-	<h5 class="card-header">Add new user</h5>
-	<div class="card-block">
-		<form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addUser()" style="text-align:center">
-			<div class="form-group">
+<div  *ngIf="!isEditing">
+	<h5>Add new user</h5>
+	<div class="ui input">
+		<form class="ui form" [formGroup]="addUserForm" (ngSubmit)="addUser()" style="text-align:center">
+			<div class="field">
+				<label>First Name</label>
 			    <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name">
 			</div>
-			<div class="form-group">
+			<div class="field">
+			<label>Last Name</label>
 			    <input class="form-control" type="text" name="lastnamep" formControlName="lastnamep" placeholder="Paterno">
 			</div>
-			<div class="form-group">
+			<div class="field">
+			<label>Last Name</label>
 			    <input class="form-control" type="text" name="lastnamem" formControlName="lastnamem" placeholder="Materno">
 			</div>
-			<div class="form-group">
+			<div class="field">
+			<label>Nick</label>
 			    <input class="form-control" type="text" name="nick" formControlName="nick" placeholder="Nick">
 			</div>
-			<div class="form-group">
-			    <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
+			<div class="field">
+			<label>Password</label>
+			    <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
 			</div>
 			
-			<button class="btn btn-primary" type="submit" [disabled]="!addUserForm.valid"><i class="fa fa-floppy-o"></i>Add</button>
+			<button class="ui button" type="submit" [disabled]="!addUserForm.valid">Add</button>
 		</form>
 	</div>
 

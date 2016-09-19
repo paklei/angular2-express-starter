@@ -5,15 +5,14 @@ import "rxjs/add/operator/map";
 
 @Component({
     selector: "app",
-    template: `
-<div class="ui container">
+    template: `<div class="ui container">
     <nav class="ui menu inverted teal huge">
         <a routerLink="home" class="item">Home</a>
         <a routerLink="contact" class="item">Contact</a>
         
+
         <nav class="menu right">
-        <a class="bottom attached fluid primary" (click)="signupform()" class="item">Signup form</a>
-            <a class="bottom attached fluid primary" (click)="signup()" class="item">Signup</a>
+            <a routerLink="signup" class="item">Signup form</a>
             <a (click)="myPopup.show($event, {position: 'right center'})" *ngIf="!isLogged" class="item">Login</a>
             <a (click)="logout()" *ngIf="isLogged" class="item inverted red">Logout</a>
         </nav>
@@ -24,11 +23,11 @@ import "rxjs/add/operator/map";
             <card-title> Simple login </card-title>
             <card-subtitle>  </card-subtitle>
             <card-content>
-                <p><b>Password</b>: angualr2express</p>
-                <p><b>Username</b>: john</p>
+                <p><input #nick class="ui input" type="text" name="nick" placeholder="nick"></p>
+                <p><input #password class="ui input" type="text" name="password" placeholder="password"></p>
             </card-content>
             
-            <sm-button class="bottom attached fluid primary" *ngIf="!isLogged" (click)="login()">Login</sm-button>
+            <sm-button class="bottom attached fluid primary" *ngIf="!isLogged" (click)="login(nick.value,password.value)">Login</sm-button>
             <sm-button class="bottom attached fluid red" *ngIf="isLogged" (click)="logout()">Logout</sm-button>
         </sm-card>
     </sm-popup>
@@ -49,10 +48,6 @@ import "rxjs/add/operator/map";
 })
 export class AppComponent {
     appName: string = "Angular 2 Express";
-    user: any = {
-        password: "angualr2express",
-        username: "john"
-    };
 
     isLogged: boolean;
     response: { password: string, salt: string };
@@ -61,25 +56,12 @@ export class AppComponent {
     constructor(private http: Http) {
         this.isLogged = !!localStorage.getItem("id_token");
     }
-    signupform(){
 
-    }
-
-    signup() {
-        this.http.post("/login/signup", JSON.stringify({ password: this.user.password, username: this.user.username }), new RequestOptions({
-            headers: new Headers({"Content-Type": "application/json"})
-        }))
-            .map((res: any) => res.json())
-            .subscribe(
-                (res: any) => {
-                    this.response = res;
-                },
-                (error: Error) => { console.log(error); }
-            );
-    }
-
-    login() {
-        this.http.post("/login", JSON.stringify({ password: this.user.password }), new RequestOptions({
+    login(nick,password) {
+        this.http.post("/login", JSON.stringify({ 
+            password: password,
+            nick: nick
+         }), new RequestOptions({
             headers: new Headers({"Content-Type": "application/json"})
         }))
             .map((res: Response) => res.json())
